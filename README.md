@@ -1,7 +1,7 @@
 ember-http2
 ==============================================================================
 
-[Short description of the addon.]
+Emberized http2 version of the node.js (9.5 +) package-http2
 
 Installation
 ------------------------------------------------------------------------------
@@ -14,7 +14,9 @@ ember install ember-http2
 Usage
 ------------------------------------------------------------------------------
 
-[Longer description of how to use the addon in apps.]
+The http2 package in node.js 9.5+ version has been packaged to be used in ember.
+
+This has been tested on ember 3.0.0 +.
 
 
 Contributing
