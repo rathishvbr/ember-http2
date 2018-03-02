@@ -12,7 +12,7 @@ module.exports = {
   included: function(app) {
   this._super.included(app);
   // this.app.import(app.bowerDirectory + '/remarkable/dist/remarkable.js');
-  this.app.import('node_modules/http2/lib/index.js');
+  this.app.import('node_modules/remarkable/dist/remarkable.js');
   this.app.import('vendor/ember-http2/shim.js', {
    type: 'vendor',
    exports: { 'http2': ['default'] }
