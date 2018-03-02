@@ -1,77 +1,21 @@
 'use strict';
 
-var http2 = require('http2');
+var path = require('path');
 
 module.exports = {
   name: 'ember-http2',
 
-//   init() {
-//   this._super.init && this._super.init.apply(this, arguments);
-// },
-//
-// included() {
-//   this._super.included.apply(this, arguments);
-//   this.import('vendor/http2.js');
-// },
-//
-// treeForVendor(vendorTree) {
-//   var http2Tree = new Funnel(path.join(this.project.root, 'node_modules', 'http2'), {
-//     files: ['index.js'],
-//   });
-//
-//   return new MergeTrees([vendorTree, http2Tree]);
-// },
+  blueprintsPath: function() {
+    return path.join(__dirname, 'blueprints');
+  },
 
-init() {
-  this._super.init && this._super.init.apply(this, arguments);
-
-  this._debugTree = BroccoliDebug.buildDebugCallback('ember-http2');
-},
-
-_shouldCompileJS() {
-  return true;
-},
-
-treeForAddon(tree) {
-  let lodashPath = path.dirname(require.resolve('http2'));
-
-  let lodashTree = this._debugTree(lodashPath, 'input');
-
-  lodashTree = replace(lodashTree, {
-    files: ['*.js'],
-    pattern: {
-      match: /\.js/g,
-      replacement: ''
-    }
-  });
-
-  lodashTree = this._debugTree(lodashTree, 'post-extension-replace');
-
-  lodashTree = new Funnel(lodashTree, {
-    getDestinationPath(path) {
-      // if (path === 'lodash.js') {
-      //   return 'index.js';
-      // }
-
-      return path;
-    }
-  });
-
-
-  if (tree) {
-    tree = mergeTrees([lodashTree, tree], {
-      overwrite: true
-    });
-  } else {
-    tree = lodashTree;
-  }
-
-  return this._super.treeForAddon.call(this, tree);
+  included: function(app) {
+  this._super.included(app);
+  // this.app.import(app.bowerDirectory + '/remarkable/dist/remarkable.js');
+  this.app.import('node_modules/http2/lib/index.js');
+  this.app.import('vendor/ember-http2/shim.js', {
+   type: 'vendor',
+   exports: { 'http2': ['default'] }
+ });
 }
-
-
-
-
-
-
 };
